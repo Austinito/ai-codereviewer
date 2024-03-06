@@ -24,6 +24,8 @@ interface PRDetails {
 }
 
 async function getPRDetails(): Promise<PRDetails> {
+  // print out the event path
+  console.log(process.env.GITHUB_EVENT_PATH || "");
   const { repository, number } = JSON.parse(
     readFileSync(process.env.GITHUB_EVENT_PATH || "", "utf8")
   );
@@ -90,7 +92,7 @@ function createPrompt(file: File, chunk: Chunk, prDetails: PRDetails): string {
 Review the following code diff in the file "${
     file.to
   }" and take the pull request title and description into account when writing the response.
-  
+
 Pull request title: ${prDetails.title}
 Pull request description:
 
